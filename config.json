@@ -3,6 +3,7 @@
 	"ftx-api-secret": "",
 	"ftx-subaccount": "",
 	"ftx-busd-bsc-address": "",
+	"ftx-withdrawal-password": "",
 	"binance-api-key": "",
 	"binance-api-secret": "",
 	"binance-busd-bsc-address": ""

@@ -7,7 +7,7 @@ import math
 
 
 print("--------------------------------------------------------------------")
-print("Binance to FTX v0.1")
+print("FTX to Binance v0.2")
 print("--------------------------------------------------------------------")
 print("")
 print("")
@@ -22,11 +22,12 @@ BapiKey = data["binance-api-key"]
 BapiSecret = data["binance-api-secret"]
 ftx_busd_bsc_address = data['ftx-busd-bsc-address']
 binance_busd_bsc_address = data['binance-busd-bsc-address']
+ftx_withdrawal_password = data['ftx-withdrawal-password']
 
 
 ftx = FtxClient(apiKey, apiSecret, subAccount)
 coin = 'BUSD'
-ftx.withdrawals(coin, sys.argv[1], binance_busd_bsc_address,None, 'bsc', None, sys.argv[2])
+ftx.withdrawals(coin, sys.argv[1], binance_busd_bsc_address,None, 'bsc', ftx_withdrawal_password, None)
 
 print("[FTX] Sending "+ sys.argv[1] + " BUSD now")
 print ("Waiting...")
