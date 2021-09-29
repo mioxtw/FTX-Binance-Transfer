@@ -1,5 +1,5 @@
     Please stop 2FA and enable withdrawal password for FTX
-   ![image](https://user-images.githubusercontent.com/74540418/135208590-d58fd3dc-b7f1-4c37-a059-777ffd0cc2a2.png)
+  ![image](https://user-images.githubusercontent.com/74540418/135212942-71476936-028c-41ca-9163-8454c9bb9964.png)
 
 
 
