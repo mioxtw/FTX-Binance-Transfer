@@ -7,7 +7,7 @@ import math
 
 
 print("--------------------------------------------------------------------")
-print("Binance to Ftx v0.3")
+print("Binance to Ftx v0.4")
 print("--------------------------------------------------------------------")
 print("")
 print("")
@@ -27,6 +27,7 @@ binance_busd_bsc_address = data['binance-busd-bsc-address']
 size = float(sys.argv[1])
 
 
+
 if size < 10:
     print(f"幣安提現BUSD最小數量為10")
     sys.exit()
@@ -41,9 +42,55 @@ time.sleep(1)
 while True:
     balance = binance.get_asset_balance('BUSD')
     if float(balance['free']) != 0:
-        binance.withdraw(coin='BUSD',network='BSC', address=ftx_busd_bsc_address, amount=size)
+        timestamp = time.time()
+        withdraw_status = binance.withdraw(coin='BUSD',network='BSC', address=ftx_busd_bsc_address, amount=size, withdrawOrderId=timestamp)
+        time.sleep(1)
+
+        finished2 = False
+        while True:
+            w_history = binance.get_withdraw_history(withdrawOrderId=timestamp, status=2)
+            for i in w_history:
+                if (i['status'] == 2):
+                    print(f"等待確認")
+                    finished2 = True
+                    break;
+            if (finished2):
+                break;
+            time.sleep(1)
+
+        finished4 = False
+        while True:
+            w_history = binance.get_withdraw_history(withdrawOrderId=timestamp, status=4)
+            for i in w_history:
+                if (i['status'] == 4):
+                    print(f"處理中")
+                    finished4 = True
+                    break;
+            if (finished4):
+                break;
+            time.sleep(1)
+
+
+        finished6 = False
+        while True:
+            w_history = binance.get_withdraw_history(withdrawOrderId=timestamp, status=6)
+            for i in w_history:
+                if (i['status'] == 6):
+                    print(f"提現完成")
+                    finished6 = True
+                    break;
+            if (finished6):
+                break;
+            time.sleep(1)
+
+
+
+
+
         print(f"[Binance] Sending {size} BUSD now")
         break;
     time.sleep(1)
+
+
 
 
