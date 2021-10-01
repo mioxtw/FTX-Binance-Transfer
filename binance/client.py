@@ -189,7 +189,7 @@ class BaseClient:
         url = self.FUTURES_URL
         if self.testnet:
             url = self.FUTURES_TESTNET_URL
-        return url + '/' + self.FUTURES_API_VERSION + '/' + path
+        return url + '/' + self.FUTURES_API_VERSION2 + '/' + path
 
     def _create_futures_data_api_uri(self, path: str) -> str:
         url = self.FUTURES_DATA_URL

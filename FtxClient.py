@@ -61,6 +61,17 @@ class FtxClient:
         coin_balance  = mm[coin_index]['total']
         return coin_balance
 
+    def get_all_balances(self):
+        return self._get('wallet/balances')
+
+    def get_all_usdValue(self):
+        total = 0
+        for mm in self._get('wallet/balances'):
+            total = total + mm['usdValue']
+        return total
+
+    def get_account(self):
+        return self._get('account')
 
     def set_lending_offer(self, coin: str, size: float, rate:float):
         return self._post('spot_margin/offers', {'coin': coin,

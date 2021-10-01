@@ -6,5 +6,6 @@
 	"ftx-withdrawal-password": "",
 	"binance-api-key": "",
 	"binance-api-secret": "",
-	"binance-busd-bsc-address": ""
+	"binance-busd-bsc-address": "",
+	"auto-balance-threshold": 0.05
 }
