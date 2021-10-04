@@ -7,7 +7,7 @@ import math
 
 
 print("--------------------------------------------------------------------")
-print("Binance to Ftx v0.4")
+print("Binance to Ftx v0.5")
 print("--------------------------------------------------------------------")
 print("")
 print("")
@@ -39,6 +39,7 @@ print(f"[Binance] U本位帳戶劃轉 {size} BUSD 到現貨帳戶")
 
 time.sleep(1)
 
+
 while True:
     balance = binance.get_asset_balance('BUSD')
     if float(balance['free']) != 0:
@@ -51,7 +52,7 @@ while True:
             w_history = binance.get_withdraw_history(withdrawOrderId=timestamp, status=2)
             for i in w_history:
                 if (i['status'] == 2):
-                    print(f"等待確認")
+                    print(f"[Binance] 等待確認")
                     finished2 = True
                     break;
             if (finished2):
@@ -62,8 +63,9 @@ while True:
         while True:
             w_history = binance.get_withdraw_history(withdrawOrderId=timestamp, status=4)
             for i in w_history:
-                if (i['status'] == 4):
-                    print(f"處理中")
+                if (i['status'] == 4 and 'txId' in i):
+                    txid = i['txId']
+                    print(f"[Binance] 處理中 txid:{txid}")
                     finished4 = True
                     break;
             if (finished4):
@@ -71,17 +73,19 @@ while True:
             time.sleep(1)
 
 
-        finished6 = False
-        while True:
-            w_history = binance.get_withdraw_history(withdrawOrderId=timestamp, status=6)
-            for i in w_history:
-                if (i['status'] == 6):
-                    print(f"提現完成")
-                    finished6 = True
-                    break;
-            if (finished6):
-                break;
-            time.sleep(1)
+
+#        finished6 = False
+#        while True:
+#            w_history = binance.get_withdraw_history(withdrawOrderId=timestamp, status=6)
+#            for i in w_history:
+#                if (i['status'] == 6):
+#                    print(f"[Binance] 提現完成 txid:{i['txId']}")
+#                    finished6 = True
+#                    break;
+#            if (finished6):
+#                break;
+#            time.sleep(1)
+
 
 
 
@@ -93,4 +97,20 @@ while True:
 
 
 
-
+ftx = FtxClient(apiKey, apiSecret, subAccount)
+finished = False
+getTxid = False
+while True:
+    deposit = ftx.get_deposits_history()
+    for i in deposit:
+        if(i['coin'] == 'BUSD' and  'txid' in i and i['txid'] == txid):
+            if (getTxid == False):
+                print(f"[FTX] Get txid: {txid} status:{i['status']}")
+                getTxid = True
+        if (i['coin'] == 'BUSD' and  'txid' in i and i['txid'] == txid and i['status'] == 'confirmed'):
+            print(f"[FTX] Get txid: {txid} status:{i['status']}")
+            finished = True
+            break;
+    if (finished):   
+        break;
+    time.sleep(1)

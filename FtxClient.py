@@ -97,3 +97,6 @@ class FtxClient:
                                      'password': password,
                                      'code': code
                                      })
+
+    def get_deposits_history(self):
+        return self._get('wallet/deposits')
