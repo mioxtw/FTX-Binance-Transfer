@@ -27,10 +27,10 @@ ftx_withdrawal_password = data['ftx-withdrawal-password']
 
 ftx = FtxClient(apiKey, apiSecret, subAccount)
 coin = 'BUSD'
-size = sys.argv[1]
+size = float(sys.argv[1])
 withdraw_status = ftx.withdrawals(coin, size, binance_busd_bsc_address,None, 'bsc', ftx_withdrawal_password, None)
 
-print("[FTX] Sending "+ size + " BUSD now")
+print(f"[FTX] Sending {size} BUSD now")
 print ("Waiting...")
 time_start = time.time()
 
