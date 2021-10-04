@@ -7,7 +7,7 @@ import math
 
 
 print("--------------------------------------------------------------------")
-print("Binance to Ftx v0.5")
+print("Binance to Ftx v0.6")
 print("--------------------------------------------------------------------")
 print("")
 print("")
@@ -36,9 +36,10 @@ binance = Client(BapiKey,BapiSecret)
 transfer_status = binance.make_universal_transfer(type='UMFUTURE_MAIN', asset='BUSD', amount=size)
 #print(transfer_status)
 print(f"[Binance] U本位帳戶劃轉 {size} BUSD 到現貨帳戶")
+print ("Waiting...")
+time_start = time.time()
 
 time.sleep(1)
-
 
 while True:
     balance = binance.get_asset_balance('BUSD')
@@ -58,6 +59,7 @@ while True:
             if (finished2):
                 break;
             time.sleep(1)
+            print(f"[Time Cost] {math.floor(math.floor(time.time()-time_start)/60)}m:{math.floor(time.time()-time_start)%60}s         ", end = '\r')
 
         finished4 = False
         while True:
@@ -71,7 +73,8 @@ while True:
             if (finished4):
                 break;
             time.sleep(1)
-
+            print(f"[Time Cost] {math.floor(math.floor(time.time()-time_start)/60)}m:{math.floor(time.time()-time_start)%60}s         ", end = '\r')
+        
 
 
 #        finished6 = False
@@ -94,6 +97,7 @@ while True:
         print(f"[Binance] Sending {size} BUSD now")
         break;
     time.sleep(1)
+    print(f"[Time Cost] {math.floor(math.floor(time.time()-time_start)/60)}m:{math.floor(time.time()-time_start)%60}s         ", end = '\r')
 
 
 
@@ -114,3 +118,5 @@ while True:
     if (finished):   
         break;
     time.sleep(1)
+    print(f"[Time Cost] {math.floor(math.floor(time.time()-time_start)/60)}m:{math.floor(time.time()-time_start)%60}s         ", end = '\r')
+print(f"[Time Cost] {math.floor((time.time() - time_start) /60)}m:{math.floor((time.time() - time_start) %60)}s")
