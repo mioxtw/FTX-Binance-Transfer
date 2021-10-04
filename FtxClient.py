@@ -100,3 +100,6 @@ class FtxClient:
 
     def get_deposits_history(self):
         return self._get('wallet/deposits')
+
+    def get_withdrawals_history(self):
+        return self._get('wallet/withdrawals')
